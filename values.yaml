@@ -1,0 +1,75 @@
+# Default values for mycharts.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# replicaCount: 1
+
+# image:
+#   repository: mysql
+#   pullPolicy: IfNotPresent
+#   # Overrides the image tag whose default is the chart appVersion.
+#   tag: "latest"
+#   name: gireesh-db-container
+# containerPort: 3306
+#   env1: MYSQL_ROOT_PASSWORD
+#   env2: MYSQL_DATABASE
+#   val1: "root"
+#   val2: "mydb"
+
+
+
+
+
+service:
+  type: ClusterIP
+  port: 80
+
+containers:
+  dbpod:
+    name: gireesh-db-container
+    image: mysql
+    ports:
+      containerport: 3306
+    env1: MYSQL_ROOT_PASSWORD
+    env2: MYSQL_DATABASE
+    val1: "root"
+    val2: "mydb"
+  mspod:
+    name: gireesh-ms-container
+    image: gireeshnaidu/myapp1:v1
+    ports:
+      containerport: 3000
+    env: DBURL
+    val: "root:root@tcp(db-service:3306)/mydb"
+
+services:
+  dbsvc:
+    name: db-service
+    type: ClusterIP
+    selector:
+      app: gn-db
+    ports:
+      port: 3306
+      targetPort: 3306
+  mssvc:
+    name: ms-service
+    type: NodePort
+    selector:
+      app: gn-api
+    ports:
+      port: 3000
+      targetPort: 3000
+      nodePort: 30300
+
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+

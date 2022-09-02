@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: gireesh-test-pod1
+  labels:
+    app: gn-db
+    purpose: gireesh-test
+spec:
+  containers:
+  - name: {{.Values.containers.dbpod.name}}
+    image: {{.Values.containers.dbpod.image}}
+    ports:
+    - containerPort: {{.Values.containers.dbpod.ports.containerport}}
+    env:
+    - name: {{.Values.containers.dbpod.env1}}
+      value: {{.Values.containers.dbpod.val1}}
+    - name: {{.Values.containers.dbpod.env2}}
+      value: {{.Values.containers.dbpod.val2}}

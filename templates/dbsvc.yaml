@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{.Values.services.dbsvc.name}}
+spec:
+  type: {{.Values.services.dbsvc.type}}
+  selector:
+    app: {{.Values.services.dbsvc.selector.app}}
+  ports:
+   - port: {{.Values.services.dbsvc.ports.port}}
+     targetPort: {{.Values.services.dbsvc.ports.targetPort}}

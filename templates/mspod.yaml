@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: gireesh-test-ms-pod
+  labels:
+    app: gn-api
+    purpose: gireesh-test
+spec:
+  containers:
+  - name: {{.Values.containers.mspod.name}}
+    image: {{.Values.containers.mspod.image}}
+    ports:
+    - containerPort: {{.Values.containers.mspod.ports.containerport}}
+    env:
+    - name: {{.Values.containers.mspod.env}}
+      value: {{.Values.containers.mspod.val}}
